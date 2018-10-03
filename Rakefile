@@ -7,27 +7,35 @@ task :console do
   Pry.start
 end # End Console Task
 
+desc 'fill boroughs table'
+task :fill_boroughs do
+  Borough.create(name: "Bronx")
+  Borough.create(name: "Manhattan")
+  Borough.create(name: "Queens")
+  Borough.create(name: "Brooklyn")
+  Borough.create(name: "Staten Island")
+end # End Console Task
 
 desc 'fill subways table with API info'
 task :fill_subways do
   get_subways.each do |subway_hash|
     subway_stop = SubwayStop.new()
     subway_stop.name = subway_hash["subway"]
-    if subway_hash["borough"].capitalize.include? "Brooklyn"
+    if subway_hash["borough"].capitalize.include? "Bronx"
       # Assign Brooklyn ID of 3
-      subway_stop.borough_id = 3
+      subway_stop.borough_id = 1
     elsif subway_hash["borough"].capitalize.include? "Manhattan"
       # Assign Manhattan ID of 4
-      subway_stop.borough_id = 4
-    elsif subway_hash["borough"].capitalize.include? "Bronx"
-      # Assign Bronx ID of 2
       subway_stop.borough_id = 2
     elsif subway_hash["borough"].capitalize.include? "Queens"
+      # Assign Bronx ID of 2
+      subway_stop.borough_id = 3
+    elsif subway_hash["borough"].capitalize.include? "Brooklyn"
       # Assign Queens ID of 5
-      subway_stop.borough_id = 5
+      subway_stop.borough_id = 4
     elsif subway_hash["borough"].capitalize.include? "Staten"
       # Assign Staten ID of 6
-      subway_stop.borough_id = 6
+      subway_stop.borough_id = 5
     else
       puts "ERROR"
     end
@@ -53,22 +61,22 @@ task :fill_schools do
     # Benjamin N. Cardozo High School has missing borough data in API.
     # Manually correct to Queens
     if school["school_name"] == "Benjamin N. Cardozo High School"
-      s.borough_id = 5
-    elsif school["borough"].capitalize.include? "Brooklyn"
-      # Assign Brooklyn ID of 3
       s.borough_id = 3
+    elsif school["borough"].capitalize.include? "Bronx"
+      # Assign Brooklyn ID of 3
+      s.borough_id = 1
     elsif school["borough"].capitalize.include? "Manhattan"
       # Assign Manhattan ID of 4
-      s.borough_id = 4
-    elsif school["borough"].capitalize.include? "Bronx"
-      # Assign Bronx ID of 2
       s.borough_id = 2
     elsif school["borough"].capitalize.include? "Queens"
+      # Assign Bronx ID of 2
+      s.borough_id = 3
+    elsif school["borough"].capitalize.include? "Brooklyn"
       # Assign Queens ID of 5
-      s.borough_id = 5
+      s.borough_id = 4
     elsif school["borough"].capitalize.include? "Staten"
       # Assign Staten ID of 6
-      s.borough_id = 6
+      s.borough_id = 5
     else
       puts "ERROR"
     end
