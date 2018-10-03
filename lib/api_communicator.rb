@@ -5,53 +5,59 @@ require 'soda/client'
 
 
 # Creates new Client Instance with Soda-Ruby gem
-
-school_data = SODA::Client.new({:domain => "data.cityofnewyork.us", :app_token => ENV['API_KEY']})
-
-# ### Gets boroughs ###
-#
-# def get_boroughs(school_data)
-#   boroughs = school_data.get("h7rb-945c", :$select => "borough")
-#   boroughs = boroughs.uniq
-#   boroughs.pop
-#   boroughs.map do |hash|
-#     hash["borough"].strip
-#   end
-# end
-#
-# ### END GET BOROUGHS ###
+def client
+  SODA::Client.new({:domain => "data.cityofnewyork.us", :app_token => ENV['API_KEY']})
+end
 
 ### Gets subway stops
 
-def get_subways(school_data)
-  subways = school_data.get("h7rb-945c", :$select => "subway")
-  subways = subways.map do |hash|
-    hash["subway"]
-  end
+def api_subways
+  subways = client.get("h7rb-945c", :$select => "subway, borough")
+  # subways = subways.map do |hash|
+  #   hash["subway"]
+  subways.uniq
 end
 
-unformatted = get_subways(school_data)
-binding.pry
+# Not functioning
+def get_subways
+  subways_array = []
 
-def format_subways(unformatted)
-  unformatted.map do |object|
-    if object.include? ";"
-      object.split(";")
-    else
-      object
+  api_subways.each do |hash|
+    if hash["subway"] != "N/A"
+      if hash["subway"].include? ";"
+        # Make value into a properly formatted array of stops.
+        hash["subway"] = hash["subway"].split(";")
+        # Iterate over the new array of subways (hash["subway"])
+        # Create a new hash from borough, and each subway stop,
+        # Add that to our subway
+        hash["subway"].each do |subway_stop|
+          borough = hash.keys[0]
+          subway = hash.keys[1]
+          new_hash = {borough => hash[borough], subway => subway_stop.strip}
+          subways_array << new_hash
+        end
+      else # The subway stop is just a string of one string.
+        subways_array << hash
+      end
     end
-  end.flatten.uniq.sort
+  end
+  subways_array.uniq
 end
 
 ### END GET SUBWAYS ###
 
 ### Get schools ###
 
-def get_schools(school_data)
-  columns = "school_name, borough, attendance_rate, college_career_rate, extracurricular_activities, graduation_rate, neighborhood, overview_paragraph, psal_sports_boys, psal_sports_girls, psal_sports_coed, subway, total_students"
-  schools = school_data.get("h7rb-945c", :$select => columns)
-end
+# def get_schools(client)
+#   columns = "school_name, borough, attendance_rate, college_career_rate, extracurricular_activities, graduation_rate, neighborhood, overview_paragraph, psal_sports_boys, psal_sports_girls, psal_sports_coed, subway, total_students"
+#   schools = client.get("h7rb-945c", :$select => columns)
+# end
 
+def get_schools
+  columns = "school_name, borough"
+  schools = client.get("h7rb-945c", :$select => columns)
+end
+# binding.pry
 ### END GET SCHOOLS ###
 # binding.pry
 # puts "hi"
