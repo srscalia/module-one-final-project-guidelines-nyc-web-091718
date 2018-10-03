@@ -83,3 +83,14 @@ task :fill_schools do
     s.save
   end
 end # End Fill_Schools Task
+
+
+desc 'fills join table between subway stops and schools'
+task :fill_join do
+  get_schools_and_subways.each do |sss|
+    s = SchoolSubwayStop.new()
+    s.school_id = School.find_by(name: sss["school_name"]).id
+    s.subway_stop_id = SubwayStop.find_by(name: sss["subway"]).id
+    s.save
+  end
+end # End Console Task

@@ -60,17 +60,16 @@ end
 ### Gets subway stops
 
 def api_schools_and_subways
-  school_and_subways = client.get("h7rb-945c", :$select => "school_name, subway, borough")
-  binding.pry
+  school_and_subways = client.get("h7rb-945c", :$select => "school_name, subway")
   school_and_subways.uniq
-  binding.pry
 end
 
 def get_schools_and_subways
-  subways_array = []
+  school_and_subways_array = []
 
-  api_subways.each do |hash|
+  api_schools_and_subways.each do |hash|
     if hash["subway"] != "N/A"
+      # If school has more than one subway stop
       if hash["subway"].include? ";"
         # Make value into a properly formatted array of stops.
         hash["subway"] = hash["subway"].split(";")
@@ -78,17 +77,17 @@ def get_schools_and_subways
         # Create a new hash from borough, and each subway stop,
         # Add that to our subway
         hash["subway"].each do |subway_stop|
-          borough = hash.keys[0]
+          school = hash.keys[0]
           subway = hash.keys[1]
-          new_hash = {borough => hash[borough], subway => subway_stop.strip}
-          subways_array << new_hash
+          new_hash = {school => hash[school], subway => subway_stop.strip}
+          school_and_subways_array << new_hash
         end
-      else # The subway stop is just a string of one string.
-        subways_array << hash
+      else # The school has just ONE subway stop
+        school_and_subways_array << hash
       end
     end
   end
-  subways_array.uniq
+  school_and_subways_array
 end
 
 ### END GET SUBWAYS ###
