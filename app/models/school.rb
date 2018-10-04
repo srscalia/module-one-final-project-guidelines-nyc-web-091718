@@ -17,7 +17,7 @@ class School < ActiveRecord::Base
     if list_of_names.include? school
       School.find_by(name: school)
     else
-      puts "ERROR!"
+      return false
     end
   end # end of find schools
 

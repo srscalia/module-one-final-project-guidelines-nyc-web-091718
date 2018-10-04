@@ -2,9 +2,9 @@
 class CLI
   attr_accessor :last_input
 
-  def call
+  def welcome
     puts "\n\nWelcome!"
-  end # end for call
+  end # end for welcome
 
   def menu
     line_break = "\n\n"
@@ -83,6 +83,12 @@ class CLI
     print "#{line_break}Please enter name of school: "
     # Test with "Women's Academy of Excellence"
     ask_for_input
+    while !(School.find_school(@last_input))
+      line_break = "\n\n"
+      print "#{line_break}Please enter name of school: "
+      # Test with "Women's Academy of Excellence"
+      ask_for_input
+    end
     school = School.find_school(@last_input)
     school.print_school_info
     puts"\n\nWould you like to explore another school?\n\n"
