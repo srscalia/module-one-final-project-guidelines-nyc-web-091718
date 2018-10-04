@@ -23,10 +23,13 @@ class School < ActiveRecord::Base
 
   def print_school_info
     line_break = "\n\n"
-    puts "Here is a bit of info about #{self.name}:#{line_break}"
+    puts "#{line_break}Here is a bit of info about #{self.name}:#{line_break}"
     puts "\t#{self.overview_paragraph}#{line_break}"
     puts "\tTotal students: #{self.total_students}#{line_break}"
+    puts "\tAttendance rate: #{self.attendance_rate}#{line_break}"
     puts "\tGraduation rate: #{self.graduation_rate}#{line_break}"
+    puts "\tCollege career rate: #{self.college_career_rate}#{line_break}"
+    puts "\tExtracurricular activites: #{self.extracurricular_activities}#{line_break}"
   end
 
 
