@@ -9,7 +9,7 @@ def client
   SODA::Client.new({:domain => "data.cityofnewyork.us", :app_token => ENV['API_KEY']})
 end
 
-### Gets subway stops
+# Gets subway stops
 
 def api_subways
   subways = client.get("h7rb-945c", :$select => "subway, borough")
@@ -41,9 +41,9 @@ def get_subways
   subways_array.uniq
 end
 
-### END GET SUBWAYS ###
+# END GET SUBWAYS
 
-### Get schools ###
+# Get schools
 
 def get_schools
   #   columns = "school_name, borough, attendance_rate, college_career_rate, extracurricular_activities, graduation_rate, neighborhood, overview_paragraph, psal_sports_boys, psal_sports_girls, psal_sports_coed, subway, total_students"
@@ -51,7 +51,7 @@ def get_schools
   schools = client.get("h7rb-945c", :$select => columns)
 end
 
-### END GET SCHOOLS ###
+# END GET SCHOOLS
 
 
 

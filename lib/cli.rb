@@ -46,8 +46,6 @@ class CLI
           overview_of_boroughs_menu
         else
           break
-          # puts "\n\nGoodbye. We'll miss you <3"
-          # @last_input = "exit"
         end
       else
         overview_of_boroughs_menu
@@ -69,7 +67,6 @@ class CLI
     ask_for_input
     puts line_break
     verify_borough_input
-
   end #end of overview_of_boroughs
 
   def overview_of_borough
@@ -101,7 +98,5 @@ class CLI
       menu_main_loop
     end
   end #end of school_info
-
-
 
 end # end for Command Line Interface Class

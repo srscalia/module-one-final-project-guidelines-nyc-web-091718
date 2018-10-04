@@ -9,7 +9,6 @@ class School < ActiveRecord::Base
 
   def self.find_school(school)
     # school is the user input
-    # TODO normalize input (account for title cap)
     school = school
     list_of_names = School.all.map do |instance|
       instance.name
@@ -42,7 +41,7 @@ class School < ActiveRecord::Base
     puts "\tCollege career rate: #{self.college_career_rate}#{line_break}"
     puts "\tExtracurricular activites: #{self.extracurricular_activities}#{line_break}"
     puts "_" * 75
-  end
+  end # end of print_school_info
 
 
 end

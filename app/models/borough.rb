@@ -3,20 +3,13 @@ class Borough < ActiveRecord::Base
   has_many :subway_stops
   has_many :schools
 
-
-  #TODO change to instance methods
-  # def self.find_schools(borough)
-  #   borough = borough.titlecase
-  #   Borough.find_by(name: borough).schools
-  # end
-
   def count_schools
     self.schools.count
-  end
+  end # end of count_schools
 
   def count_accessible_subways
     self.subway_stops.count
-  end
+  end # end of count_accessible_subways
 
   def graduation_rate
     total = self.schools.sum(:graduation_rate)
@@ -39,7 +32,7 @@ class Borough < ActiveRecord::Base
     puts "\tGraduation rate: #{self.graduation_rate}#{line_break}"
     puts "\tCollege career rate: #{self.college_career_rate}#{line_break}"
     puts "_" * 59
-  end
+  end # end of print_borough_info
 
 
 end
