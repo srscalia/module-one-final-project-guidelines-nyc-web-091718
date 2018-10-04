@@ -18,6 +18,16 @@ class School < ActiveRecord::Base
     average = (total/count).round(3)
   end # end of graduation rate
 
-  
+
+  ### Instance Methods on a School
+
+  def print_school_info
+    line_break = "\n\n"
+    puts "Here is a bit of info about #{self.name}:#{line_break}"
+    puts "\t#{self.overview_paragraph}#{line_break}"
+    puts "\tTotal students: #{self.total_students}#{line_break}"
+    puts "\tGraduation rate: #{self.graduation_rate}#{line_break}"
+  end
+
 
 end
