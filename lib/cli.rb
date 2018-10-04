@@ -7,31 +7,21 @@ class CLI
   end # end for call
 
   def menu
-    puts "What would you like to know about New York City public high schools? Please select a number."
+    line_break = "\n\n"
+    puts "#{line_break}What would you like to know about New York City public high schools? Please select a number.#{line_break}"
     puts "1. Overview of Boroughs"
-    puts "2. Student engagement"
-    puts "3. Graduation rates and college placement"
-    puts "4. Subway access"
+    puts "2. Specific School Info#{line_break}"
   end # end for menu
 
   def menu_main_loop
-    puts "Before you enter a number."
     ask_for_input
-    puts "After you enter a number."
     while @last_input != "exit"
       case @last_input.to_i
       when 1
-        binding.pry
         overview_of_boroughs_menu
         break
       when 2
-        student_engagement
-        break
-      when 3
-        grad_college_rates
-        break
-      when 4
-        subway
+        school_info
         break
       else
         menu
@@ -55,28 +45,27 @@ class CLI
   end
 
   def overview_of_boroughs_menu
-    puts "What would you like to know about New York City public high schools? Please select a number."
-    puts "Bronx (Enter 1)"
-    puts "Manahattan (Enter 2)"
-    puts "Queens (Enter 3)"
-    puts "Brooklyn (Enter 4)"
-    puts "Staten Island (Enter 5)"
+    line_break = "\n\n"
+    puts "#{line_break}What would you like to know about New York City public high schools? Please select a number.#{line_break}"
+    puts "1. Bronx"
+    puts "2. Manahattan"
+    puts "3. Queens"
+    puts "4. Brooklyn"
+    puts "5. Staten Island#{line_break}"
     ask_for_input
     verify_borough_input
 
   end #end of overview_of_boroughs
 
-  def student_engagement
+  def overview_of_borough
+    borough_id = @last_input.to_i
+    borough = Borough.find(borough_id)
 
-  end #end of student_engagement
+  end #end of overview_of_borough
 
-  def grad_college_rates
+  def school_info
 
-  end #end of grad_college_rates
-
-  def subway
-
-  end #end of subway
+  end #end of school_info
 
 
 

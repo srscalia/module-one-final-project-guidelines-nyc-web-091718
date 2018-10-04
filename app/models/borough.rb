@@ -4,38 +4,40 @@ class Borough < ActiveRecord::Base
   has_many :schools
 
 
-  #TODO input verification
-  #TODO consider whether instance or class method
+  #TODO change to instance methods
+  # def self.find_schools(borough)
+  #   borough = borough.titlecase
+  #   Borough.find_by(name: borough).schools
+  # end
 
-
-
-  def self.find_schools(borough)
-    borough = borough.titlecase
-    Borough.find_by(name: borough).schools
+  def count_schools
+    self.schools.count
   end
 
-  def self.count_schools(borough)
-    borough = borough.titlecase
-    Borough.find_by(name: borough).schools.count
+  def count_accessible_subways
+    self.subway_stops.count
   end
 
-  def self.find_accessible_subways(borough)
-    borough = borough.titlecase
-    Borough.find_by(name: borough).subway_stops
-  end
-
-  def self.count_accessible_subways(borough)
-    borough = borough.titlecase
-    Borough.find_by(name: borough).subway_stops.count
-  end
-
-  def self.graduation_rate_by_borough(borough)
-    total = Borough.find_schools(borough).sum(:graduation_rate)
-    count = Borough.count_schools(borough)
+  def graduation_rate
+    total = self.schools.sum(:graduation_rate)
+    count = self.count_schools
     average = (total/count).round(2)
   end # end of graduation rate by borough
 
-  
+  def college_career_rate
+    total = self.schools.sum(:college_career_rate)
+    count = self.count_schools
+    average = (total/count).round(2)
+  end # end of college_career_rate
+
+  def print_borough_info
+    line_break = "\n\n"
+    puts "#{line_break}Here is a bit of info about #{self.name} public high schools:#{line_break}"
+    puts "\tTotal schools: #{self.count_schools}#{line_break}"
+    puts "\tNumber of accessible subways: #{self.count_accessible_subways}#{line_break}"
+    puts "\tGraduation rate: #{self.graduation_rate}#{line_break}"
+    puts "\tCollege career rate: #{self.college_career_rate}#{line_break}"
+  end
 
 
 end
