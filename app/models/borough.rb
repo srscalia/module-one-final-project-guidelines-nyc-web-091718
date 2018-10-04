@@ -28,6 +28,12 @@ class Borough < ActiveRecord::Base
     borough = borough.capitalize
     Borough.find_by(name: borough).subway_stops.count
   end
+  
+  def self.graduation_rate_by_borough(borough)
+    total = Borough.find_schools(borough).sum(:graduation_rate)
+    count = Borough.count_schools(borough)
+    average = (total/count).round(2)
+  end # end of graduation rate by borough
 
 
 end

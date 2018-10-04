@@ -10,7 +10,14 @@ class School < ActiveRecord::Base
   def self.find_school(school)
     # TODO normalize input (account for title cap)
     School.find_by(name: school)
-  end
+  end # end of find schools
 
+  def self.average_graduation_rate
+    total = School.sum(:graduation_rate)
+    count = School.count
+    average = (total/count).round(3)
+  end # end of graduation rate
+
+  
 
 end

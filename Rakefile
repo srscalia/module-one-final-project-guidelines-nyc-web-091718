@@ -52,6 +52,9 @@ task :fill_schools do
   get_schools.each do |school|
     s = School.new()
     s.name = school["school_name"]
+    s.overview_paragraph = school["overview_paragraph"]
+    s.graduation_rate = school["graduation_rate"].to_f
+    s.total_students = school["total_students"]
 
     # If school exists with this name already, it's already in the DB.
 
