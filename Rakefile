@@ -55,6 +55,9 @@ task :fill_schools do
     s.overview_paragraph = school["overview_paragraph"]
     s.graduation_rate = school["graduation_rate"].to_f
     s.total_students = school["total_students"]
+    s.attendance_rate = school["attendance_rate"].to_f
+    s.college_career_rate = school["college_career_rate"].to_f
+    s.extracurricular_activities = school["extracurricular_activities"]
 
     # If school exists with this name already, it's already in the DB.
 

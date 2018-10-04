@@ -47,7 +47,7 @@ end
 
 def get_schools
   #   columns = "school_name, borough, attendance_rate, college_career_rate, extracurricular_activities, graduation_rate, neighborhood, overview_paragraph, psal_sports_boys, psal_sports_girls, psal_sports_coed, subway, total_students"
-  columns = "school_name, borough, overview_paragraph, graduation_rate, total_students"
+  columns = "school_name, borough, overview_paragraph, graduation_rate, total_students, attendance_rate, college_career_rate, extracurricular_activities,"
   schools = client.get("h7rb-945c", :$select => columns)
 end
 
